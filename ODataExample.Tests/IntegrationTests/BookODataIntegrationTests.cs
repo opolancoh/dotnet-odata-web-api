@@ -134,9 +134,10 @@ public class BookOdataIntegrationTests : IClassFixture<CustomWebApplicationFacto
     public static TheoryData<int, string> FilterConditions => new()
     {
         {1, "contains(title,'01')"},
+        {2, "contains(title,'10')"},
         {4, "contains(title,'Book')"},
         {4, "startsWith(title,'B')"},
-        {1, "title eq 'Book 01'"},
+        {1, "title eq 'Book 101'"},
     };
     
     public static TheoryData<int, string> PagingConditions => new()

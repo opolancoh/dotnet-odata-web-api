@@ -16,7 +16,7 @@ The data model is represented in the next image:
 * SQL Server (Docker Container)
 * xUnit (Integration Tests)
 
-### Database
+## Database
 We are using SQL Server as the default database, but you can use any Entity Framework supported database.
 
 #### Setup Database
@@ -40,7 +40,7 @@ Apply the existing migration (run this command in the application root folder):
 dotnet ef database update --project ODataExample.Web
 ```
 
-### Run and test the application
+## Run and test the application
 Run the application and make sure it's listening on port 7012. The app inserts some default data to test the queries.
 
 Open postman and add a new GET request to get the default data over this url https://localhost:7012/odata/books.
@@ -48,7 +48,7 @@ Open postman and add a new GET request to get the default data over this url htt
   <img src="./docs/img/postman-query-all.png" alt="Default data" width="600">
 </p>
 
-### OData
+## OData
 Let's test the Books controller to fetch some data:
 
 * Get the all the Books and select just the fields 'Id' and 'Title' <br />
@@ -79,4 +79,20 @@ Let's test the Books controller to fetch some data:
 `https://localhost:7012/odata/books?$top=2&$skip=1&$count=true`
 <p align="center">
   <img src="./docs/img/postman-query-pagination.png" alt="Default data" width="600">
+</p>
+
+## Integrations Tests (xUnit)
+I have added some integration tests in the ODataExample.Tests project. To run all the tests just run this command in the application root folder:
+
+```sh
+dotnet test
+```
+<p align="center">
+  <img src="./docs/img/dotnet-test-1.png" alt="Default data" width="600"> <br />
+  <img src="./docs/img/dotnet-test-2.png" alt="Default data" width="600">
+</p>
+
+Or just run the tests with Visual Studio or Rider
+<p align="center">
+  <img src="./docs/img/dotnet-test-3.png" alt="Default data" width="600">
 </p>
