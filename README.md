@@ -3,9 +3,11 @@ This is a DotNet Core web api repo that uses OData to prevent over-fetching and 
 
 [OData](https://www.odata.org), short for Open Data Protocol, is an open protocol to allow the creation and consumption of queryable and interoperable RESTful APIs in a simple and standard way.
 
-In this example, we are going to create a Web API to request for some data. OData will be in charge of **loading only the required data**.
+In this example, we are going to create a Web API to request for some data. **OData will be in charge of loading only the required data**.
 The data model is represented in the next image:
-![Database diagram](/docs/img/database-diagram-1.png?raw=true "Database diagram")
+<p align="center">
+  <img src="./docs/img/database-diagram-1.png" alt="Database diagram" width="600">
+</p>
 
 ### Technologies in this repo:
 * DotNet Core 6
@@ -18,7 +20,7 @@ The data model is represented in the next image:
 We are using SQL Server as the default database, but you can use any Entity Framework supported database.
 
 #### Setup Database
-Run this command to create the database container (you need to have Docker installed on your system):
+Create the database container (you need to have Docker installed on your system):
 
 ```sh
 docker run -d --name my-sqlserver -p 1433:1433 -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=My@Passw0rd" mcr.microsoft.com/mssql/server:2019-latest
@@ -32,8 +34,49 @@ docker stop my-sqlserver && docker rm my-sqlserver
 
 #### Create Database
 
-Apply the existing migration. Run this command in the application root folder:
+Apply the existing migration (run this command in the application root folder):
 
 ```sh
 dotnet ef database update --project ODataExample.Web
 ```
+
+### Run and test the application
+Run the application and make sure it's listening on port 7012. The app inserts some default data to test the queries.
+
+Open postman and add a new GET request to get the default data over this url https://localhost:7012/odata/books.
+<p align="center">
+  <img src="./docs/img/postman-query-all.png" alt="Default data" width="600">
+</p>
+
+### OData
+Let's test the Books controller to fetch some data:
+
+* Get the all the Books and select just the fields 'Id' and 'Title' <br />
+`https://localhost:7012/odata/books?$select=id,title`
+<p align="center">
+  <img src="./docs/img/postman-query-select.png" alt="Default data" width="600">
+</p>
+
+* Get the all the Books and load the related entity 'Review' <br />
+  `https://localhost:7012/odata/books?$expand=reviews`
+<p align="center">
+  <img src="./docs/img/postman-query-expand.png" alt="Default data" width="600">
+</p>
+
+* Get the Book when Title equals to 'Book 01' <br />
+`https://localhost:7012/odata/books?$filter=title eq 'Book 101'` 
+<p align="center">
+  <img src="./docs/img/postman-query-filter-eq.png" alt="Default data" width="600">
+</p>
+
+* Get the Book when Title contains '10' <br />
+`https://localhost:7012/odata/books?$filter=contains(title,'10')`
+<p align="center">
+  <img src="./docs/img/postman-query-filter-contains.png" alt="Default data" width="600">
+</p>
+
+* Get 2 Books per page skipping 1 and add the total count (pagination) <br />
+`https://localhost:7012/odata/books?$top=2&$skip=1&$count=true`
+<p align="center">
+  <img src="./docs/img/postman-query-pagination.png" alt="Default data" width="600">
+</p>

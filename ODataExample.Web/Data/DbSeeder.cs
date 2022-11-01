@@ -14,25 +14,25 @@ public class DbSeeder
         new Book()
         {
             Id = BookId1,
-            Title = "Book 01",
+            Title = "Book 101",
             PublishedOn = new DateTime(2021, 01, 24)
         },
         new Book()
         {
             Id = BookId2,
-            Title = "Book 02",
+            Title = "Book 102",
             PublishedOn = new DateTime(2021, 04, 26)
         },
         new Book()
         {
             Id = BookId3,
-            Title = "Book 03",
+            Title = "Book 203",
             PublishedOn = new DateTime(2022, 07, 13)
         },
         new Book()
         {
             Id = BookId4,
-            Title = "Book 04",
+            Title = "Book 204",
             PublishedOn = new DateTime(2022, 10, 20)
         }
     };
