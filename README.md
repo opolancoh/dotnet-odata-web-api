@@ -6,7 +6,7 @@ This is a DotNet Core web api repo that uses OData to prevent over-fetching and 
 In this example, we are going to create a Web API to request for some data. **OData will be in charge of loading only the required data**.
 The data model is represented in the next image:
 <p align="center">
-  <img src="./docs/img/database-diagram-1.png" alt="Database diagram" width="600">
+  <img src="./docs/img/database-diagram-1.png" alt="Database diagram" width="500">
 </p>
 
 ### Technologies in this repo:
@@ -48,34 +48,38 @@ Open postman and add a new GET request to get the default data over this url htt
   <img src="./docs/img/postman-query-all.png" alt="Default data" width="600">
 </p>
 
-## OData
-Let's test the Books controller to fetch some data:
+## Operations in OData
 
-* Get the all the Books and select just the fields 'Id' and 'Title' <br />
+#### **Select**
+
+* Get all Books and select the fields 'Id' and 'Title' <br />
 `https://localhost:7012/odata/books?$select=id,title`
 <p align="center">
   <img src="./docs/img/postman-query-select.png" alt="Default data" width="600">
 </p>
 
-* Get the all the Books and load the related entity 'Review' <br />
+#### **Expand**
+* Get all Books and load the related entity 'Review' <br />
   `https://localhost:7012/odata/books?$expand=reviews`
 <p align="center">
   <img src="./docs/img/postman-query-expand.png" alt="Default data" width="600">
 </p>
 
-* Get the Book when Title equals to 'Book 01' <br />
+#### **Filter**
+* Get all Books where Title equals to 'Book 101' <br />
 `https://localhost:7012/odata/books?$filter=title eq 'Book 101'` 
 <p align="center">
   <img src="./docs/img/postman-query-filter-eq.png" alt="Default data" width="600">
 </p>
 
-* Get the Book when Title contains '10' <br />
+* Get all Books where Title contains '10' <br />
 `https://localhost:7012/odata/books?$filter=contains(title,'10')`
 <p align="center">
   <img src="./docs/img/postman-query-filter-contains.png" alt="Default data" width="600">
 </p>
 
-* Get 2 Books per page skipping 1 and add the total count (pagination) <br />
+#### **Pagination**
+* Get 2 Books per page skipping 1 and add the total count <br />
 `https://localhost:7012/odata/books?$top=2&$skip=1&$count=true`
 <p align="center">
   <img src="./docs/img/postman-query-pagination.png" alt="Default data" width="600">
@@ -92,7 +96,7 @@ dotnet test
   <img src="./docs/img/dotnet-test-2.png" alt="Default data" width="600">
 </p>
 
-Or just run the tests with Visual Studio or Rider
+Or run the tests with Visual Studio or Rider
 <p align="center">
   <img src="./docs/img/dotnet-test-3.png" alt="Default data" width="600">
 </p>
